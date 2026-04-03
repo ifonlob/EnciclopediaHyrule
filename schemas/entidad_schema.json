@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+      "success": {
+        "type": "boolean"
+      },
+      "count": {
+        "type": "integer",
+        "minimum": 0
+      },
+      "data": {
+        "type" : "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            }
+          },
+          "required": ["id","name"]
+        }
+      }
+  },
+  "required": ["success","count","data"]
+}
