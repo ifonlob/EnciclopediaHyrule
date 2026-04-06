@@ -1,0 +1,59 @@
+@font-face {
+    font-family: "Hylia Serif";
+    src: url("../fonts/FuenteZelda.otf") format("opentype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* =========================
+   1. Reset básico
+   ========================= */
+
+*{
+    box-sizing: border-box;
+    padding:0;
+    margin:0;
+    outline:0;
+    list-style: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms;
+        animation-iteration-count: 1;
+        transition-duration: 0.01ms;
+    }
+}
+
+
+/* =========================
+   2. Variables globales
+   ========================= */
+
+:root{
+    --fuente-principal: "Hylia Serif", serif;
+}
+
+
+/* =========================
+   3. Estilos generales
+   ========================= */
+
+a,
+a:hover,
+a:focus {
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* =========================
+   4. Cabecera
+   ========================= */
+
+.cabecera__titulo{
+    font-family: var(--fuente-principal);
+}
