@@ -2,9 +2,66 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enciclopedia Hyrule</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <script type="module" src="assets/js/firebase.js" defer></script>
+    <script src="assets/js/api.js" defer></script>
+    <script src="assets/js/transform.js" defer></script>
+    <script src="assets/js/ui.js" defer></script>
 </head>
 <body>
+    <header class="cabecera">
+        <a class="cabecera__logo" href="./index.html" aria-label="Ir al inicio">
+            <img class="logo__imagen" src="./assets/imgs/triforce-svgrepo-com.svg" alt="Ir al inicio de EnciclopediaHyrule">
+        </a>
+        <h1 class="cabecera__titulo">Enciclopedia Hyrule</h1>
+        <nav class="cabecera__filtros">
+            <p class="filtros__descripcion">Filtrar búsqueda:</p>
+            <label class="filtros__etiqueta">Juegos
+                <input class="filtros__checkbox" type="checkbox" name="entidad" value="juegos">
+            </label>
+            <label class="filtros__etiqueta">Staff
+                <input class="filtros__checkbox" type="checkbox" name="entidad" value="staff">
+            </label>
+            <label class="filtros__etiqueta">Personajes
+                <input class="filtros__checkbox" type="checkbox" name="entidad" value="personajes">
+            </label>
+            <label class="filtros__etiqueta">Monstruos
+                <input class="filtros__checkbox" type="checkbox" name="entidad" value="monstruos">
+            </label>
+            <label class="filtros__etiqueta">Jefes
+                <input class="filtros__checkbox" type="checkbox" name="entidad" value="jefes">
+            </label>
+            <label class="filtros__etiqueta">Mazmorras
+                <input class="filtros__checkbox" type="checkbox" name="entidad" value="mazmorras">
+            </label>
+            <label class="filtros__etiqueta">Lugares
+                <input class="filtros__checkbox" type="checkbox" name="entidad" value="lugares">
+            </label>
+            <label class="filtros__etiqueta">Objetos
+                <input class="filtros__checkbox" type="checkbox" name="entidad" value="objetos">
+            </label>
+        </nav>
+        <nav class="cabecera__buscador">
+            <form class="buscador" role="search" name="buscador" aria-label="Buscar contenido en Enciclopedia Hyrule">
+                <label class="buscador__etiqueta">
+                    <img class="buscador__lupa" src="./assets/imgs/lupa.png" alt="Lupa Zelda Ocarina Of Time">
+                    <input class="buscador__input" type="search" name="buscador" placeholder="Buscar...">
+                </label>
+            </form>
+        </nav>
+    </header>
+    <main></main>
+    <footer></footer>
+
+
+
+
+
+
+
+
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
         import {
