@@ -32,6 +32,11 @@
 
 :root{
     --fuente-principal: "Hylia Serif", serif;
+    --color-negro: #000000;
+    --color-blanco: #ffffff;
+    --color-oro: #c4a457;
+    --gris-oscuro:#1a1a1a;
+    --gris-claro:#eee;
 }
 
 
@@ -54,6 +59,124 @@ img {
    4. Cabecera
    ========================= */
 
+.cabecera{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap:1rem;
+    margin: 0 auto;
+    width: 100%;
+    min-height: 120px;
+    padding: 1rem 3rem;
+    background-image: url("../imgs/pattern2.jpg");
+}
+
+.cabecera__logo{
+    display: flex;
+    justify-content: center;
+    width: 25%;
+}
+
+.logo__imagen{
+    max-width: 30%;
+}
+
 .cabecera__titulo{
+    width: 40%;
+    text-align: center;
+    font-size: 3rem;
     font-family: var(--fuente-principal);
 }
+
+.cabecera__filtros{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    width: 25%;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    background: #00000090;
+    border-radius: 0.5rem;
+    border: 1px solid #c4a45730;
+}
+
+.filtros__descripcion {
+    grid-column: 1 / 5;
+    text-align: center;
+    width: 100%;
+    font-family: var(--fuente-principal);
+    color: var(--color-oro);
+    padding:0.5rem;
+    font-size: 1rem;
+}
+
+
+.filtros__etiqueta {
+    display: flex;
+    align-items: center;
+    padding: 0.55rem;
+    border: 1px solid #444;
+    cursor: pointer;
+    border-radius: 0.75rem;
+    background: var(--gris-oscuro);
+    color: var(--gris-claro);
+    font-family: var(--fuente-principal);
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+}
+
+.filtros__checkbox {
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.filtros__etiqueta:hover {
+    border-color: var(--color-oro);
+}
+
+.filtros__etiqueta:has(.filtros__checkbox:checked) {
+    background: var(--color-oro);
+    color: var(--color-negro);
+    border-color: var(--color-blanco);
+    font-weight: 600;
+}
+
+.cabecera__buscador{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.buscador__etiqueta {
+    display: flex;
+    align-items: center;
+    background: #00000095;
+    padding: 0.5rem 1.5rem;
+    border: 2px solid var(--color-oro);
+    border-radius: 2rem;
+    transition: all 0.3s ease;
+}
+
+.buscador__lupa{
+    max-width: 50px;
+}
+
+.buscador__input {
+    border: none;
+    background: transparent;
+    color: var(--color-blanco);
+    font-family: var(--fuente-principal);
+    font-size: 1rem;
+    padding: 0.5rem;
+}
+
+
+.buscador__etiqueta:focus-within{
+    border-color: var(--color-blanco);
+    box-shadow: 0 0 15px var(--color-oro);
+    transform: translateY(-2px);
+}
+
+
+
