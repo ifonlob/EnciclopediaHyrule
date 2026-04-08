@@ -32,6 +32,7 @@
 
 :root{
     --fuente-principal: "Hylia Serif", serif;
+    --fondo-principal:#0a140a;
     --color-negro: #000000;
     --color-blanco: #ffffff;
     --color-oro: #c4a457;
@@ -43,6 +44,18 @@
 /* =========================
    3. Estilos generales
    ========================= */
+
+body{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--fondo-principal);
+}
+
+main{
+    flex: 1;
+    position: relative;
+}
 
 a,
 a:hover,
@@ -394,5 +407,175 @@ img {
         font-size: 0.4rem;
         padding: 0.1rem;
         border-radius: 0.2rem;
+    }
+}
+
+/* =========================
+   5. SECCIÓN INTRODUCTORIA
+   ========================= */
+
+.introduccion {
+    text-align: center;
+    padding: 1rem;
+    color: var(--color-blanco);
+    margin: 0 auto;
+}
+
+.introduccion__titulo {
+    font-family: var(--fuente-principal);
+    color: var(--color-oro);
+    font-size: 2.5rem;
+    padding:1.1rem;
+}
+
+.introduccion__enlace {
+    position: absolute;
+    top:15px;
+    right: 15px;
+    display: inline-block;
+    text-align: center;
+    padding: 1rem;
+    width: auto;
+    min-width: 200px;
+    font-family: var(--fuente-principal);
+    color: var(--color-oro);
+    font-size: 1.2rem;
+    background: rgba(0, 0, 0, 0.8);
+    border: 3px double var(--color-oro);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.introduccion__enlace:hover {
+    background: var(--color-oro);
+    color: var(--color-negro);
+    transform: translateY(-3px);
+    border-color: var(--color-blanco);
+}
+
+
+.introduccion__texto {
+    padding:1.5rem;
+    font-size: 1.1rem;
+    font-style: italic;
+}
+
+/* =========================
+   6. FOOTER
+   ========================= */
+
+.pie-pagina {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    background-color: var(--color-negro);
+    border-top: 5px double var(--color-oro);
+    padding: 2rem;
+    text-align: center;
+}
+
+.pie-pagina__navegacion {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+}
+
+.pie-pagina__enlace {
+    font-family: var(--fuente-principal);
+    color: var(--color-oro);
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+.pie-pagina__enlace:hover {
+    color: var(--color-blanco);
+}
+
+.pie-pagina__texto {
+    color: var(--gris-claro);
+    font-size: 0.85rem;
+    opacity: 0.7;
+    max-width: 600px;
+}
+
+@media (max-width: 800px) {
+    .pie-pagina {
+        padding: 2rem 1rem;
+    }
+    .pie-pagina__enlace {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 500px) {
+    .pie-pagina__navegacion {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    .pie-pagina__texto {
+        font-size: 0.75rem;
+    }
+}
+
+/* =========================
+   7. SECCIÓN INTRODUCTORIA
+   ========================= */
+
+.cabecera-favoritos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    width: 100%;
+    min-height: 150px;
+    padding: 1rem 3rem;
+    background-image: url("../imgs/pattern2.jpg");
+    border-bottom: 5px double var(--color-oro);
+}
+
+.cabecera-favoritos__titulo {
+    font-family: var(--fuente-principal);
+    color: var(--color-oro);
+    font-size: 3rem;
+    text-shadow: 2px 2px 5px var(--color-negro);
+}
+
+.cabecera-favoritos__logo .logo__imagen {
+    max-width: 80px;
+}
+
+
+@media (max-width: 1100px) {
+    .cabecera-favoritos__titulo {
+        font-size: 2.5rem;
+    }
+    .cabecera-favoritos__logo .logo__imagen {
+        max-width: 70px;
+    }
+}
+
+@media (max-width: 800px) {
+    .cabecera-favoritos {
+        gap: 1rem;
+        min-height: 120px;
+    }
+    .cabecera-favoritos__titulo {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 500px) {
+    .cabecera-favoritos {
+        flex-direction: column;
+        text-align: center;
+        padding: 1.5rem 1rem;
+    }
+    .cabecera-favoritos__titulo {
+        font-size: 1.8rem;
+    }
+    .cabecera-favoritos__logo .logo__imagen {
+        max-width: 60px;
     }
 }
