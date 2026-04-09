@@ -6,14 +6,22 @@ const checkboxes = document.querySelectorAll(".filtros__checkbox")
 const contenedorPrincipal = document.querySelector("main");
 let temporizadorDebouncer;
 
-const limpiarMain = () =>{
-    while (contenedorPrincipal.firstChild){
-        contenedorPrincipal.removeChild(contenedorPrincipal.firstChild);
-    }
-}
+const limpiarSecciones = () => {
+    const intro = document.querySelector(".introduccion");
+    if (intro) intro.classList.add("oculto");
+
+    const secciones = document.querySelectorAll("main > section");
+    secciones.forEach(seccion => {
+        if (!seccion.classList.contains("introduccion")) {
+            while (seccion.firstChild) {
+                seccion.removeChild(seccion.firstChild);
+            }
+        }
+    });
+};
 
 const renderizarResultados = (resultado) => {
-    limpiarMain()
+    limpiarSecciones()
     resultado.forEach(({categoria, resultados}) =>{
         const contenedorDestino = document.querySelector(`.${categoria}`);
 
@@ -65,6 +73,7 @@ const gestionarBusqueda = () => {
 
     temporizadorDebouncer = setTimeout(async () =>{
         const resultado = await obtenerResultadosDesdeAPI(textoBusqueda, categoriasActivas);
+        console.log(resultado)
         renderizarResultados(resultado)
     },500)
 
