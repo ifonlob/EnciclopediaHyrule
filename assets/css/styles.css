@@ -421,6 +421,10 @@ img {
     margin: 0 auto;
 }
 
+.introduccion.oculto{
+    display: none;
+}
+
 .introduccion__titulo {
     font-family: var(--fuente-principal);
     color: var(--color-oro);
