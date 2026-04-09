@@ -6,7 +6,46 @@ const checkboxes = document.querySelectorAll(".filtros__checkbox")
 const contenedorPrincipal = document.querySelector("main");
 let temporizadorDebouncer;
 
-const renderizarResultados = (resultados) => {
+const limpiarMain = () =>{
+    while (contenedorPrincipal.firstChild){
+        contenedorPrincipal.removeChild(contenedorPrincipal.firstChild);
+    }
+}
+
+const renderizarResultados = (resultado) => {
+    limpiarMain()
+    resultado.forEach(({categoria, resultados}) =>{
+        const contenedorDestino = document.querySelector(`.${categoria}`);
+
+        if(contenedorDestino && resultados.length > 0){
+            const h2 = document.createElement("h2");
+            h2.classList.add("seccion__titulo");
+            h2.textContent = categoria.toUpperCase();
+            contenedorDestino.appendChild(h2);
+
+            resultados.forEach(objeto => {
+                    const tarjeta = document.createElement('article')
+                    tarjeta.classList.add("tarjeta");
+
+                    const nombre = document.createElement("h3");
+                    nombre.classList.add("tarjeta__nombre");
+                    nombre.textContent = objeto.name;
+
+                    const boton = document.createElement("button");
+                    boton.classList.add("tarjeta__boton-favorito");
+                    boton.textContent = "Añadir a Favoritos";
+                    boton.dataset.id = objeto.id;
+
+                    tarjeta.appendChild(nombre);
+                    tarjeta.appendChild(boton);
+                    contenedorDestino.appendChild(tarjeta);
+                }
+            )
+        }
+    }
+
+    )
+
 
 }
 
@@ -25,8 +64,8 @@ const gestionarBusqueda = () => {
     }
 
     temporizadorDebouncer = setTimeout(async () =>{
-        const resultados = await obtenerResultadosDesdeAPI(textoBusqueda, categoriasActivas);
-        renderizarResultados(resultados)
+        const resultado = await obtenerResultadosDesdeAPI(textoBusqueda, categoriasActivas);
+        renderizarResultados(resultado)
     },500)
 
 }
@@ -38,6 +77,7 @@ const inicializar = () =>{
         checkbox.addEventListener("change",gestionarBusqueda)
     })
 }
+
 
 
 
