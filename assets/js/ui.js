@@ -14,7 +14,11 @@ const gestionarBusqueda = () => {
     clearTimeout(temporizadorDebouncer)
 
     const textoBusqueda = buscador.value.trim()
-    const categoriasActivas = [...checkboxes].filter(checkbox => checkbox.checked).map(checkbox => checkbox.dataset.categoria)
+    let categoriasActivas = [...checkboxes].filter(checkbox => checkbox.checked).map(checkbox => checkbox.dataset.categoria)
+
+    if (categoriasActivas.length === 0) {
+        categoriasActivas = [...checkboxes].map(checkbox => checkbox.dataset.categoria);
+    }
 
     if (textoBusqueda.length === 0) {
         return;
