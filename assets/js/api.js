@@ -1,6 +1,6 @@
 "use strict";
 
-const URL_BASE = "https://docs.zelda.fanapis.com/api/"
+const URL_BASE = "https://zelda.fanapis.com/api/"
 
 export const obtenerResultadosDesdeAPI = async(texto,categorias) =>{
     const termino = texto.toLowerCase().trim();
