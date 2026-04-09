@@ -3,7 +3,7 @@
 const URL_BASE = "https://zelda.fanapis.com/api/"
 
 export const obtenerResultadosDesdeAPI = async(texto,categorias) =>{
-    const termino = texto.toLowerCase().trim();
+    const termino = texto.trim();
 
     const promesasResultado = categorias.map(async (categoria) =>{
         const claveCache = `${categoria}-${termino}`;
