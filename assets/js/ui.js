@@ -4,6 +4,15 @@ import { obtenerResultadosDesdeAPI } from './api.js'
 const buscador = document.querySelector(".buscador__input")
 const checkboxes = document.querySelectorAll(".filtros__checkbox")
 const contenedorPrincipal = document.querySelector("main");
+const categoriasTraducidas = {
+    "games" : "juegos",
+    "characters" : "personajes",
+    "monsters" : "monstruos",
+    "bosses" : "jefes",
+    "dungeons" : "mazmorras",
+    "places" : "lugares",
+    "items" : "objetos"
+}
 let temporizadorDebouncer;
 
 const limpiarSecciones = () => {
@@ -28,7 +37,7 @@ const renderizarResultados = (resultado) => {
         if(contenedorDestino && resultados.length > 0){
             const h2 = document.createElement("h2");
             h2.classList.add("seccion__titulo");
-            h2.textContent = categoria.toUpperCase();
+            h2.textContent = categoriasTraducidas[categoria].toUpperCase();
             contenedorDestino.appendChild(h2);
 
             resultados.forEach(objeto => {
