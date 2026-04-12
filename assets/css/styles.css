@@ -321,7 +321,7 @@ img {
     }
 
     .cabecera__titulo {
-        font-size: 1.5rem;
+        font-size: 1.7rem;
     }
 
     .logo__imagen {
@@ -371,7 +371,7 @@ img {
 
     .cabecera__titulo {
         width: 80%;
-        font-size: 1rem;
+        font-size: 1.5rem;
         text-align: center;
     }
 
@@ -605,10 +605,8 @@ img {
     color: var(--color-oro);
     font-size: 2rem;
     padding: 1.1rem;
-    text-shadow: 2px 2px 4px var(--color-negro); /* Da profundidad al título */
 }
 
-/* Contenedores de categorías */
 .games, .staff, .characters, .monsters, .bosses, .dungeons, .places, .items {
     display: flex;
     flex-wrap: wrap;
@@ -618,11 +616,10 @@ img {
     width: 100%;
 }
 
-/* Estilo de la Tarjeta Individual */
 .tarjeta {
-    width: 30%; /* Mantengo tu ancho base */
-    min-width: 280px; /* Evita que se compriman demasiado */
-    background: rgba(0, 0, 0, 0.85); /* Fondo oscuro semitransparente */
+    width: 30%;
+    min-width: 280px;
+    background: rgba(0, 0, 0, 0.85);
     border: 2px solid var(--color-oro);
     border-radius: 4px;
     padding: 1.5rem;
@@ -634,14 +631,12 @@ img {
     overflow: hidden;
 }
 
-/* Efecto al pasar el ratón */
 .tarjeta:hover {
     transform: translateY(-5px);
-    box-shadow: 0 0 20px rgba(196, 164, 87, 0.4); /* Resplandor dorado */
+    box-shadow: 0 0 20px rgba(196, 164, 87, 0.4);
     border-color: var(--color-blanco);
 }
 
-/* Título de la tarjeta (Nombre) */
 .tarjeta__nombre {
     font-family: var(--fuente-principal);
     color: var(--color-oro);
@@ -652,23 +647,12 @@ img {
     padding-bottom: 0.5rem;
 }
 
-/* Párrafo de descripción e información específica */
 .tarjeta__descripcion {
     color: var(--gris-claro);
     font-size: 0.95rem;
-    line-height: 1.6;
-    margin-bottom: 1.5rem;
-    flex-grow: 1; /* Empuja el botón hacia abajo */
+    padding:1rem;
 }
 
-/* Resaltado de etiquetas (ej: "Raza:", "Lanzamiento:") */
-.tarjeta__descripcion strong {
-    color: var(--color-oro);
-    font-weight: normal;
-    letter-spacing: 0.5px;
-}
-
-/* Botón de Favoritos */
 .tarjeta__boton-favorito {
     background: transparent;
     color: var(--color-oro);
@@ -679,18 +663,16 @@ img {
     cursor: pointer;
     transition: all 0.3s ease;
     text-transform: uppercase;
-    letter-spacing: 1px;
 }
 
 .tarjeta__boton-favorito:hover {
     background: var(--color-oro);
     color: var(--color-negro);
-    box-shadow: 0 0 10px var(--color-oro);
 }
 
 @media (max-width: 800px) {
     .tarjeta {
-        width: 45%;
+        width: 60%;
     }
 }
 
