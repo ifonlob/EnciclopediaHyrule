@@ -16,15 +16,13 @@ const categoriasTraducidas = {
 let temporizadorDebouncer;
 
 const limpiarSecciones = () => {
-    const intro = document.querySelector(".introduccion");
-    if (intro) intro.classList.add("oculto");
+    const categorias = [".games", ".staff", ".characters", ".monsters", ".bosses", ".dungeons", ".places", ".items"];
 
-    const secciones = document.querySelectorAll("main > section");
-    secciones.forEach(seccion => {
-        if (!seccion.classList.contains("introduccion")) {
-            while (seccion.firstChild) {
-                seccion.removeChild(seccion.firstChild);
-            }
+    categorias.forEach(selector => {
+        const section = document.querySelector(selector);
+        if (section) {
+            section.innerHTML = "";
+            section.classList.add("oculto");
         }
     });
 };
@@ -35,6 +33,7 @@ const renderizarResultados = (resultado) => {
         const contenedorDestino = document.querySelector(`.${categoria}`);
 
         if(contenedorDestino && resultados.length > 0){
+            contenedorDestino.classList.remove("oculto");
             const h2 = document.createElement("h2");
             h2.classList.add("seccion__titulo");
             h2.textContent = categoriasTraducidas[categoria].toUpperCase();
