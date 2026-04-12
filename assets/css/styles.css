@@ -423,7 +423,7 @@ img {
     margin: 0 auto;
 }
 
-.introduccion.oculto{
+.introduccion.oculto,.games.oculto,.staff.oculto,.characters.oculto,.bosses.oculto,.monsters.oculto,.dungeons.oculto,.places.oculto,.items.oculto{
     display: none;
 }
 
@@ -526,7 +526,7 @@ img {
 }
 
 /* =========================
-   7. SECCIÓN INTRODUCTORIA
+   7. CABECERA FAVORITOS
    ========================= */
 
 .cabecera-favoritos {
@@ -584,5 +584,118 @@ img {
     }
     .cabecera-favoritos__logo .logo__imagen {
         max-width: 60px;
+    }
+}
+
+/* =========================
+   8. SECCIÓN DE TARJETAS
+   ========================= */
+
+#pagina-principal{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap:2rem;
+}
+
+.seccion__titulo {
+    width: 100%;
+    text-align: center;
+    font-family: var(--fuente-principal);
+    color: var(--color-oro);
+    font-size: 2rem;
+    padding: 1.1rem;
+    text-shadow: 2px 2px 4px var(--color-negro); /* Da profundidad al título */
+}
+
+/* Contenedores de categorías */
+.games, .staff, .characters, .monsters, .bosses, .dungeons, .places, .items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    padding: 2rem;
+    width: 100%;
+}
+
+/* Estilo de la Tarjeta Individual */
+.tarjeta {
+    width: 30%; /* Mantengo tu ancho base */
+    min-width: 280px; /* Evita que se compriman demasiado */
+    background: rgba(0, 0, 0, 0.85); /* Fondo oscuro semitransparente */
+    border: 2px solid var(--color-oro);
+    border-radius: 4px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Efecto al pasar el ratón */
+.tarjeta:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 20px rgba(196, 164, 87, 0.4); /* Resplandor dorado */
+    border-color: var(--color-blanco);
+}
+
+/* Título de la tarjeta (Nombre) */
+.tarjeta__nombre {
+    font-family: var(--fuente-principal);
+    color: var(--color-oro);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    border-bottom: 1px solid rgba(196, 164, 87, 0.3);
+    padding-bottom: 0.5rem;
+}
+
+/* Párrafo de descripción e información específica */
+.tarjeta__descripcion {
+    color: var(--gris-claro);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    flex-grow: 1; /* Empuja el botón hacia abajo */
+}
+
+/* Resaltado de etiquetas (ej: "Raza:", "Lanzamiento:") */
+.tarjeta__descripcion strong {
+    color: var(--color-oro);
+    font-weight: normal;
+    letter-spacing: 0.5px;
+}
+
+/* Botón de Favoritos */
+.tarjeta__boton-favorito {
+    background: transparent;
+    color: var(--color-oro);
+    font-family: var(--fuente-principal);
+    font-size: 1rem;
+    border: 1px solid var(--color-oro);
+    padding: 0.6rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.tarjeta__boton-favorito:hover {
+    background: var(--color-oro);
+    color: var(--color-negro);
+    box-shadow: 0 0 10px var(--color-oro);
+}
+
+@media (max-width: 800px) {
+    .tarjeta {
+        width: 45%;
+    }
+}
+
+@media (max-width: 500px) {
+    .tarjeta {
+        width: 100%;
     }
 }
