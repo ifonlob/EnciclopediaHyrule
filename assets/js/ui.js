@@ -38,7 +38,7 @@ const renderizarResultados = (resultado) => {
             const h2 = document.createElement("h2");
             h2.classList.add("seccion__titulo");
             h2.textContent = categoriasTraducidas[categoria].toUpperCase();
-            contenedorDestino.appendChild(h2);
+            contenedorDestino.append(h2);
 
             resultados.forEach(objeto => {
                     const tarjeta = document.createElement('article')
@@ -53,9 +53,9 @@ const renderizarResultados = (resultado) => {
                     boton.textContent = "Añadir a Favoritos";
                     boton.dataset.id = objeto.id;
 
-                    tarjeta.appendChild(nombre);
-                    tarjeta.appendChild(boton);
-                    contenedorDestino.appendChild(tarjeta);
+                    tarjeta.append(nombre);
+                    tarjeta.append(boton);
+                    contenedorDestino.append(tarjeta);
                 }
             )
         }
@@ -77,6 +77,11 @@ const gestionarBusqueda = () => {
     }
 
     if (textoBusqueda.length === 0) {
+        limpiarSecciones()
+        const introduccion = document.querySelector(".introduccion");
+        if (introduccion) {
+            introduccion.classList.remove("oculto");
+        }
         return;
     }
 
