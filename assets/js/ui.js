@@ -44,9 +44,71 @@ const renderizarResultados = (resultado) => {
                     const tarjeta = document.createElement('article')
                     tarjeta.classList.add("tarjeta");
 
-                    const nombre = document.createElement("h3");
+                    const nombre = document.createElement('h3');
                     nombre.classList.add("tarjeta__nombre");
                     nombre.textContent = objeto.name;
+
+                    const descripcion = document.createElement('p')
+                    descripcion.classList.add("tarjeta__descripcion")
+
+                    let contenido = "";
+
+                    /* =========================
+                       1. COMÚN A CASI TODOS
+                       ========================= */
+                    if (objeto.description) {
+                        contenido += `${objeto.description}<br><br>`;
+                    }
+
+                    /* =========================
+                       2. ESPECÍFICO POR CATEGORÍA
+                       ========================= */
+
+                    if (categoria === "games") {
+                        if (objeto.developer) contenido += `Desarrolladora: ${objeto.developer}<br>`;
+                        if (objeto.publisher) contenido += `Publicadora: ${objeto.publisher}<br>`;
+                        if (objeto.released_date) contenido += `Lanzamiento: ${objeto.released_date}<br>`;
+                    }
+
+                    if (categoria === "staff") {
+                        if (objeto.role) contenido += `Rol: ${objeto.role}<br>`;
+
+                        if (objeto.worked_on && objeto.worked_on.length > 0) {
+                            contenido += `Proyectos en los que trabajó: ${objeto.worked_on.length}<br>`;
+                        }
+                    }
+
+                    if (categoria === "characters") {
+                        if (objeto.gender) contenido += `Género: ${objeto.gender}<br>`;
+                        if (objeto.race && objeto.race.trim() !== "") {
+                            contenido += `Raza: ${objeto.race}<br>`;
+                        }
+                    }
+
+                    if (categoria === "bosses") {
+                        if (objeto.dungeons && objeto.dungeons.length > 0) {
+                            contenido += `Mazmorras: ${objeto.dungeons.length}<br>`;
+                        }
+                    }
+
+                    if (categoria === "places") {
+                        if (objeto.inhabitants && objeto.inhabitants.length > 0) {
+                            contenido += `Habitantes: ${objeto.inhabitants.length} conocidos<br>`;
+                        }
+                    }
+
+                    /* =========================
+                       3. CONTADOR GLOBAL DE JUEGOS
+                       ========================= */
+
+                    if (objeto.appearances && objeto.appearances.length > 0) {
+                        contenido += `Apariciones: ${objeto.appearances.length} juegos<br>`;
+                    } else if (objeto.games && objeto.games.length > 0) {
+                        contenido += `Apariciones: ${objeto.games.length} juegos<br>`;
+                    }
+
+                    descripcion.innerHTML = contenido;
+
 
                     const boton = document.createElement("button");
                     boton.classList.add("tarjeta__boton-favorito");
@@ -54,6 +116,7 @@ const renderizarResultados = (resultado) => {
                     boton.dataset.id = objeto.id;
 
                     tarjeta.append(nombre);
+                    tarjeta.append(descripcion)
                     tarjeta.append(boton);
                     contenedorDestino.append(tarjeta);
                 }
