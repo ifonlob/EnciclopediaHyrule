@@ -80,39 +80,5 @@
             The Legend of Zelda y sus personajes son marcas registradas de Nintendo.
         </p>
     </footer>
-
-
-
-
-
-
-
-
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
-        import {
-            getFirestore,
-            collection,
-            addDoc,
-            getDocs,
-            deleteDoc,
-            doc
-        } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyBEzm3LX42yBosp9Tjv40FGKIP-z-RBs_4",
-            authDomain: "enciclopediahyrule.firebaseapp.com",
-            projectId: "enciclopediahyrule",
-            storageBucket: "enciclopediahyrule.firebasestorage.app",
-            messagingSenderId: "434653160272",
-            appId: "1:434653160272:web:4a5c039280513a7d0c8255",
-            measurementId: "G-KE963HL6DC"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-
-        console.log("Firebase conectado", db);
-    </script>
 </body>
 </html>
