@@ -1,9 +1,9 @@
 "use strict";
 import { obtenerResultadosDesdeAPI } from './api.js'
+import { guardarFavoritos,eliminarFavorito,obtenerFavoritos } from './firebase.js';
 
 const buscador = document.querySelector(".buscador__input")
 const checkboxes = document.querySelectorAll(".filtros__checkbox")
-const contenedorPrincipal = document.querySelector("main");
 const categoriasTraducidas = {
     "games" : "juegos",
     "characters" : "personajes",
@@ -86,13 +86,13 @@ const renderizarResultados = (resultado) => {
 
                     if (categoria === "bosses") {
                         if (objeto.dungeons && objeto.dungeons.length > 0) {
-                            contenido += `Mazmorras: ${objeto.dungeons.length}<br>`;
+                            contenido += `Mazmorras: ${objeto.dungeons.length}<br>`
                         }
                     }
 
                     if (categoria === "places") {
                         if (objeto.inhabitants && objeto.inhabitants.length > 0) {
-                            contenido += `Habitantes: ${objeto.inhabitants.length} conocidos<br>`;
+                            contenido += `Habitantes: ${objeto.inhabitants.length} conocidos<br>`
                         }
                     }
 
@@ -101,23 +101,35 @@ const renderizarResultados = (resultado) => {
                        ========================= */
 
                     if (objeto.appearances && objeto.appearances.length > 0) {
-                        contenido += `Apariciones: ${objeto.appearances.length} juegos<br>`;
+                        contenido += `Apariciones: ${objeto.appearances.length} juegos<br>`
                     } else if (objeto.games && objeto.games.length > 0) {
-                        contenido += `Apariciones: ${objeto.games.length} juegos<br>`;
+                        contenido += `Apariciones: ${objeto.games.length} juegos<br>`
                     }
 
                     descripcion.innerHTML = contenido;
 
+                    const boton = document.createElement("button")
+                    boton.classList.add("tarjeta__boton-favorito")
+                    boton.dataset.id = objeto.id
+                    boton.dataset.categoria = categoria
 
-                    const boton = document.createElement("button");
-                    boton.classList.add("tarjeta__boton-favorito");
-                    boton.textContent = "Añadir a Favoritos";
-                    boton.dataset.id = objeto.id;
+                    boton.addEventListener("click", async () => {
+                        const listaFavoritos = await obtenerFavoritos()
+                        const yaEsFavorito = listaFavoritos.some(fav => fav.tarjetaId === objeto.id)
+                        if(yaEsFavorito){
+                            await eliminarFavorito(objeto.id)
+                            boton.textContent = "Añadir a Favoritos"
+                        }
+                        else{
+                            await guardarFavoritos(objeto.id, categoria);
+                            boton.textContent = "Eliminar de favoritos";
+                        }
+                    });
 
-                    tarjeta.append(nombre);
+                    tarjeta.append(nombre)
                     tarjeta.append(descripcion)
-                    tarjeta.append(boton);
-                    contenedorDestino.append(tarjeta);
+                    tarjeta.append(boton)
+                    contenedorDestino.append(tarjeta)
                 }
             )
         }
@@ -167,19 +179,6 @@ const inicializar = () =>{
 
 
 inicializar()
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
