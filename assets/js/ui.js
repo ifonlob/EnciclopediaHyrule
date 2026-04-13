@@ -27,8 +27,12 @@ const limpiarSecciones = () => {
     });
 };
 
-const renderizarResultados = (resultado) => {
+const renderizarResultados = async (resultado) => {
     limpiarSecciones()
+
+    let listaFavoritosInicial = []
+    listaFavoritosInicial = await obtenerFavoritos()
+
     resultado.forEach(({categoria, resultados}) =>{
         const contenedorDestino = document.querySelector(`.${categoria}`);
 
@@ -113,10 +117,19 @@ const renderizarResultados = (resultado) => {
                     boton.dataset.id = objeto.id
                     boton.dataset.categoria = categoria
 
+                    const yaEsFavorito = listaFavoritosInicial.some(fav => fav.tarjetaId === objeto.id);
+
+                    if(yaEsFavorito){
+                        boton.textContent = "Eliminar de favoritos"
+                    }
+                    else{
+                        boton.textContent = "Añadir a favoritos"
+                    }
+
                     boton.addEventListener("click", async () => {
-                        const listaFavoritos = await obtenerFavoritos()
-                        const yaEsFavorito = listaFavoritos.some(fav => fav.tarjetaId === objeto.id)
-                        if(yaEsFavorito){
+                        const favsActualizados = await obtenerFavoritos()
+                        const esFavAhora = favsActualizados.some(fav => fav.tarjetaId === objeto.id)
+                        if(esFavAhora){
                             await eliminarFavorito(objeto.id)
                             boton.textContent = "Añadir a Favoritos"
                         }
