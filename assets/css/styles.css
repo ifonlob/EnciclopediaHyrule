@@ -923,3 +923,55 @@ img {
         padding: 0.4rem;
     }
 }
+
+/* =========================
+   10. FAVORITOS
+   ========================= */
+
+#contenedor-favoritos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.mensaje-favoritos-vacio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 1.5rem;
+    margin: 0 auto;
+    padding: 2rem;
+    width: 90%;
+    max-width: 650px;
+    background: rgba(0, 0, 0, 0.85);
+    border: 2px dashed var(--color-oro);
+    border-radius: 1rem;
+}
+
+.mensaje-favoritos-vacio__titulo {
+    font-family: var(--fuente-principal);
+    color: var(--color-oro);
+    font-size: 2.2rem;
+}
+
+.mensaje-favoritos-vacio__texto {
+    font-size: 1.1rem;
+    color: var(--gris-claro);
+    line-height: 1.6;
+}
+
+@media (max-width: 600px) {
+    .mensaje-favoritos-vacio {
+        padding: 2rem 1rem;
+    }
+    .mensaje-favoritos-vacio__titulo {
+        font-size: 1.8rem;
+    }
+    .mensaje-favoritos-vacio__texto {
+        font-size: 1rem;
+    }
+}
