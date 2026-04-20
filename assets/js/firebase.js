@@ -61,15 +61,23 @@ const renderizarFavoritos = async () => {
     let listaFavoritos = await obtenerFavoritos()
 
     if (listaFavoritos.length === 0) {
-        const articulo = document.createElement('article')
-        const titulo = document.createElement('h2')
-        const descripcion = document.createElement('p')
-        titulo.textContent = "Aún no tienes favoritos guardados"
-        descripcion.textContent = "¿A qué esperas para añadir tus favoritos?.\n¡Estás a un solo clic de hacerlo realidad!"
-        articulo.append(titulo)
-        articulo.append(descripcion)
+        const articulo = document.createElement('article');
+        articulo.classList.add('mensaje-favoritos-vacio');
+
+        const titulo = document.createElement('h2');
+        titulo.classList.add('mensaje-favoritos-vacio__titulo');
+
+        const descripcion = document.createElement('p');
+        descripcion.classList.add('mensaje-favoritos-vacio__texto');
+
+        titulo.textContent = "Aún no tienes favoritos guardados";
+        descripcion.textContent = "¿A qué esperas para añadir tus favoritos?.\n¡Estás a un solo clic de hacerlo realidad!";
+
+        articulo.append(titulo);
+        articulo.append(descripcion);
         contenedorPrincipal.append(articulo);
-        return
+
+        return;
     }
 
     const favoritosAgrupados = {}
@@ -174,6 +182,22 @@ export const vaciarFavoritos = async () =>{
         deleteDoc(doc(bd, "favoritos", documento.id))
     );
     await Promise.all(promesasBorrado);
+
+    await renderizarFavoritos();
 }
 
-renderizarFavoritos()
+const inicializarModuloFavoritos = () => {
+    renderizarFavoritos();
+
+    const botonVaciar = document.querySelector(".cabecera-favoritos__boton");
+    if (botonVaciar) {
+        botonVaciar.addEventListener("click", vaciarFavoritos);
+    }
+}
+
+inicializarModuloFavoritos()
+
+const botonVaciar = document.querySelector(".cabecera-favoritos__boton");
+if (botonVaciar) {
+    botonVaciar.addEventListener("click", vaciarFavoritos);
+}
