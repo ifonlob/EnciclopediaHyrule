@@ -274,7 +274,7 @@ img {
         order: 2;
         width: 60%;
         text-align: start;
-        font-size: 1.8rem;
+        font-size: 2.4rem;
     }
 
     .cabecera__buscador {
@@ -321,11 +321,11 @@ img {
     }
 
     .cabecera__titulo {
-        font-size: 1.7rem;
+        font-size: 2rem;
     }
 
     .logo__imagen {
-        max-width: 40px;
+        max-width: 60px;
     }
 
     .cabecera__buscador {
@@ -366,12 +366,12 @@ img {
     }
 
     .logo__imagen {
-        max-width: 35px;
+        max-width: 40px;
     }
 
     .cabecera__titulo {
         width: 80%;
-        font-size: 1.5rem;
+        font-size: 1.8rem;
         text-align: center;
     }
 
@@ -448,7 +448,7 @@ img {
     font-size: 1.2rem;
     background: rgba(0, 0, 0, 0.8);
     border: 3px double var(--color-oro);
-    border-radius: 2px;
+    border-radius: 1rem;
     transition: all 0.3s ease;
     cursor: pointer;
 }
@@ -633,7 +633,6 @@ img {
 
 .tarjeta:hover {
     transform: translateY(-5px);
-    box-shadow: 0 0 20px rgba(196, 164, 87, 0.4);
     border-color: var(--color-blanco);
 }
 
@@ -641,7 +640,6 @@ img {
     font-family: var(--fuente-principal);
     color: var(--color-oro);
     font-size: 1.5rem;
-    margin-bottom: 1rem;
     text-align: center;
     border-bottom: 1px solid rgba(196, 164, 87, 0.3);
     padding-bottom: 0.5rem;
@@ -649,9 +647,15 @@ img {
 
 .tarjeta__descripcion {
     color: var(--gris-claro);
-    font-size: 0.95rem;
-    padding:1rem;
+    font-size: 0.9rem;
+    padding: 1rem;
+    line-height: 1.6;
+    text-shadow: 1px 1px 2px var(--color-negro);
+    background: rgba(0, 0, 0, 0.4);
+    border-top: 1px dashed rgba(196, 164, 87, 0.5);
+    border-bottom: 1px dashed rgba(196, 164, 87, 0.5);
 }
+
 
 .tarjeta__boton-favorito {
     background: transparent;
