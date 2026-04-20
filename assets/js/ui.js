@@ -1,6 +1,6 @@
 "use strict";
 import { obtenerResultadosDesdeAPI } from './api.js'
-import { guardarFavoritos,eliminarFavorito,obtenerFavoritos } from './firebase.js';
+import { guardarFavoritos,eliminarFavorito,obtenerFavoritos} from './firebase.js';
 
 const buscador = document.querySelector(".buscador__input")
 const checkboxes = document.querySelectorAll(".filtros__checkbox")
@@ -149,8 +149,40 @@ const renderizarResultados = async (resultado) => {
     }
 
     )
+}
 
+const mostrarMensajeBusquedaVacia = () => {
+    const seccionMensaje = document.querySelector(".mensaje-busqueda-vacia")
+    const introduccion = document.querySelector(".introduccion");
 
+    if (!seccionMensaje) {
+        const seccion = document.createElement("section");
+        seccion.classList.add("mensaje-busqueda-vacia");
+
+        const titulo = document.createElement("h3");
+        titulo.classList.add("mensaje-busqueda-vacia__titulo");
+        titulo.textContent = "¡Explora los secretos de Hyrule!";
+
+        const texto = document.createElement("p");
+        texto.classList.add("mensaje-busqueda-vacia__texto");
+        texto.textContent = "Utiliza el buscador de la cabecera para encontrar personajes, objetos, lugares y mucho más. ¿A qué esperas?";
+
+        seccion.append(titulo);
+        seccion.append(texto);
+
+        if (introduccion) {
+            introduccion.after(seccion);
+        }
+    } else {
+        seccionMensaje.classList.remove("oculto");
+    }
+};
+
+const ocultarMensajeBusquedaVacia = () =>{
+    const seccionMensaje = document.querySelector(".mensaje-busqueda-vacia")
+    if (seccionMensaje) {
+        seccionMensaje.classList.add("oculto");
+    }
 }
 
 const gestionarBusqueda = () => {
@@ -165,28 +197,27 @@ const gestionarBusqueda = () => {
 
     if (textoBusqueda.length === 0) {
         limpiarSecciones()
-        const introduccion = document.querySelector(".introduccion");
-        if (introduccion) {
-            introduccion.classList.remove("oculto");
-        }
+        mostrarMensajeBusquedaVacia()
         return;
     }
+
+    ocultarMensajeBusquedaVacia()
 
     temporizadorDebouncer = setTimeout(async () =>{
         const resultado = await obtenerResultadosDesdeAPI(textoBusqueda, categoriasActivas);
         console.log(resultado)
-        renderizarResultados(resultado)
+        await renderizarResultados(resultado)
     },500)
 
 }
 
-const inicializar = () =>{
-    buscador.addEventListener("input",gestionarBusqueda)
-
-    checkboxes.forEach(checkbox =>{
-        checkbox.addEventListener("change",gestionarBusqueda)
-    })
-}
+const inicializar = () => {
+        buscador.addEventListener("input", gestionarBusqueda);
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener("change", gestionarBusqueda);
+        });
+        gestionarBusqueda();
+};
 
 
 
