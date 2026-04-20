@@ -29,10 +29,12 @@ const categoriasTraducidas = {
     "places": "lugares", "items": "objetos"
 }
 
-export const guardarFavoritos = async(id, categoria) => {
+
+export const guardarFavoritos = async(id, categoria,nombre) => {
     await addDoc(collection(bd, "favoritos"),{
         tarjetaId : id,
         categoria : categoria,
+        nombre : nombre,
         fecha : new Date()
     })
 }
@@ -162,6 +164,14 @@ const renderizarFavoritos = async () => {
             contenedorPrincipal.append(seccion)
         }
     }
+}
+
+export const vaciarFavoritos = async () =>{
+    const favoritos = await getDocs(collection(bd, "favoritos"));
+    const promesasBorrado = favoritos.docs.map(documento =>
+        deleteDoc(doc(bd, "favoritos", documento.id))
+    );
+    await Promise.all(promesasBorrado);
 }
 
 renderizarFavoritos()
