@@ -569,6 +569,7 @@ img {
 }
 
 .cabecera-favoritos__titulo {
+    text-align: center;
     font-family: var(--fuente-principal);
     color: var(--color-oro);
     font-size: 3.5rem;
@@ -578,40 +579,6 @@ img {
 
 .cabecera-favoritos__logo .logo__imagen {
     max-width: 80px;
-}
-
-
-@media (max-width: 1100px) {
-    .cabecera-favoritos__titulo {
-        font-size: 2.5rem;
-    }
-    .cabecera-favoritos__logo .logo__imagen {
-        max-width: 70px;
-    }
-}
-
-@media (max-width: 800px) {
-    .cabecera-favoritos {
-        gap: 1rem;
-        min-height: 120px;
-    }
-    .cabecera-favoritos__titulo {
-        font-size: 2rem;
-    }
-}
-
-@media (max-width: 500px) {
-    .cabecera-favoritos {
-        flex-direction: column;
-        text-align: center;
-        padding: 1.5rem 1rem;
-    }
-    .cabecera-favoritos__titulo {
-        font-size: 1.8rem;
-    }
-    .cabecera-favoritos__logo .logo__imagen {
-        max-width: 60px;
-    }
 }
 
 /* =========================
@@ -814,4 +781,145 @@ img {
     border-color: var(--color-blanco);
     font-weight: 900;
     transform: translateY(-3px);
+}
+
+@media (max-width: 1550px) {
+    .cabecera-favoritos__herramientas {
+        width: 20%;
+    }
+    .cabecera-favoritos__titulo {
+        width: 45%;
+        font-size: 2.8rem;
+    }
+}
+
+@media (max-width: 1100px) {
+    .cabecera-favoritos {
+        padding: 1rem;
+        gap: 0.5rem;
+    }
+    .cabecera-favoritos__titulo {
+        font-size: 2.2rem;
+        width: 35%;
+    }
+    .cabecera-favoritos__logo .logo__imagen {
+        max-width: 80px;
+    }
+    .cabecera-favoritos__herramientas {
+        width: 30%;
+    }
+}
+
+@media (max-width: 800px) {
+    .cabecera-favoritos {
+        padding: 1rem;
+        gap: 1rem 0;
+        justify-content: space-evenly;
+        min-height: 200px;
+        flex-wrap: wrap;
+    }
+    .cabecera-favoritos__logo {
+        order: 1;
+        width: 10%;
+        display: flex;
+        justify-content: center;
+    }
+    .cabecera-favoritos__logo .logo__imagen {
+        max-width: 75px;
+    }
+    .cabecera-favoritos__titulo {
+        order: 2;
+        width: 60%;
+        font-size: 2.4rem;
+    }
+    .cabecera-favoritos__herramientas {
+        order: 3;
+        width: 45%;
+        justify-content: flex-start;
+        flex-direction: row;
+    }
+    .cabecera-favoritos .cabecera__filtros {
+        order: 4;
+    }
+}
+
+@media (max-width: 670px) {
+    .cabecera-favoritos__herramientas {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.6rem;
+    }
+    .controles__select {
+        margin-left: 0;
+        width: 100%;
+    }
+    .cabecera-favoritos__boton {
+        width: 100%;
+        padding: 0.5rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .cabecera-favoritos {
+        flex-direction: row !important;
+        padding: 1rem 0.5rem;
+        gap: 1rem 0;
+        justify-content: space-between;
+    }
+    .cabecera-favoritos__logo {
+        order: 1;
+        width: 20%;
+        display: flex;
+        justify-content: center;
+    }
+    .cabecera-favoritos__logo .logo__imagen {
+        max-width: 60px;
+    }
+    .cabecera-favoritos__titulo {
+        order: 2;
+        width: 78%;
+        font-size: 1.8rem;
+        text-align: center;
+    }
+    .cabecera-favoritos__herramientas {
+        order: 3;
+        width: 42%;
+        padding: 0.5rem;
+    }
+    .cabecera-favoritos .cabecera__filtros {
+        order: 4;
+        width: 55%;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.2rem;
+        padding: 0.3rem;
+    }
+    .filtros__etiqueta {
+        font-size: 0.65rem;
+        padding: 0.2rem;
+    }
+}
+
+@media (max-width: 500px) {
+    .cabecera-favoritos__herramientas {
+        width: 38%;
+        padding: 0.3rem;
+    }
+    .cabecera-favoritos .cabecera__filtros {
+        width: 58%;
+    }
+    .filtros__descripcion {
+        font-size: 0.75rem;
+    }
+    .filtros__etiqueta {
+        font-size: 0.55rem;
+        padding: 0.15rem;
+    }
+    .controles__select {
+        font-size: 0.75rem;
+        padding: 0.3rem;
+    }
+    .cabecera-favoritos__boton {
+        font-size: 0.75rem;
+        padding: 0.4rem;
+    }
 }
