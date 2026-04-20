@@ -54,10 +54,11 @@ export const eliminarFavorito = async(id) =>{
 }
 
 const renderizarFavoritos = async () => {
-    const contenedorPrincipal = document.getElementById("contenedor-favoritos")
+    const contenedorPrincipal = document.querySelector("#contenedor-favoritos")
+    if (!contenedorPrincipal) return;
     contenedorPrincipal.innerHTML = ""
 
-    const listaFavoritos = await obtenerFavoritos()
+    let listaFavoritos = await obtenerFavoritos()
 
     if (listaFavoritos.length === 0) {
         const articulo = document.createElement('article')
@@ -67,6 +68,7 @@ const renderizarFavoritos = async () => {
         descripcion.textContent = "¿A qué esperas para añadir tus favoritos?.\n¡Estás a un solo clic de hacerlo realidad!"
         articulo.append(titulo)
         articulo.append(descripcion)
+        contenedorPrincipal.append(articulo);
         return
     }
 
