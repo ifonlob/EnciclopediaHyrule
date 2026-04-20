@@ -134,7 +134,7 @@ const renderizarResultados = async (resultado) => {
                             boton.textContent = "Añadir a Favoritos"
                         }
                         else{
-                            await guardarFavoritos(objeto.id, categoria);
+                            await guardarFavoritos(objeto.id, categoria, objeto.nombre);
                             boton.textContent = "Eliminar de favoritos";
                         }
                     });
