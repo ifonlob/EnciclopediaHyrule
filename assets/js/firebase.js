@@ -60,6 +60,15 @@ const renderizarFavoritos = async () => {
 
     let listaFavoritos = await obtenerFavoritos()
 
+    const checkboxes = document.querySelectorAll(".filtros__checkbox");
+    const categoriasActivas = [...checkboxes]
+        .filter(checkbox => checkbox.checked)
+        .map(checkbox => checkbox.dataset.categoria);
+
+    if (categoriasActivas.length > 0) {
+        listaFavoritos = listaFavoritos.filter(fav => categoriasActivas.includes(fav.categoria));
+    }
+
     if (listaFavoritos.length === 0) {
         const articulo = document.createElement('article');
         articulo.classList.add('mensaje-favoritos-vacio');
@@ -193,6 +202,11 @@ const inicializarModuloFavoritos = () => {
     if (botonVaciar) {
         botonVaciar.addEventListener("click", vaciarFavoritos);
     }
+
+    const checkboxes = document.querySelectorAll(".filtros__checkbox");
+    checkboxes.forEach(checkbox =>{
+        checkbox.addEventListener("change",renderizarFavoritos)
+    })
 }
 
 inicializarModuloFavoritos()
