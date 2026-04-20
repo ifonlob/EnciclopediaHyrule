@@ -1,3 +1,4 @@
+
 @font-face {
     font-family: "Hylia Serif";
     src: url("../fonts/FuenteZelda.otf") format("opentype");
@@ -557,7 +558,7 @@ img {
 
 .cabecera-favoritos {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     gap: 2rem;
     width: 100%;
@@ -718,7 +719,8 @@ img {
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 1rem;
+    gap:2rem;
+    padding: 2rem;
     width: 90%;
     max-width: 700px;
     background: rgba(0, 0, 0, 0.75);
@@ -741,4 +743,75 @@ img {
     font-size: 1.1rem;
     color: var(--gris-claro);
     max-width: 90%;
+}
+
+/* =========================
+   9. HERRAMIENTAS FAVORITOS
+   ========================= */
+
+.cabecera-favoritos__herramientas {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    background: rgba(0, 0, 0, 0.75);
+    padding: 1rem;
+    border-radius: 1rem;
+}
+
+.filtros-favoritos__descripcion{
+    display: flex;
+    flex-direction: column;
+    gap:1rem;
+    text-align: center;
+    width: 100%;
+    font-family: var(--fuente-principal);
+    color: var(--color-oro);
+    padding:0.5rem;
+    font-size: 1rem;
+}
+
+.controles__select {
+    background-color: var(--gris-oscuro);
+    color: var(--color-blanco);
+    font-family: var(--fuente-principal);
+    font-size: 0.95rem;
+    border: 1px solid var(--color-oro);
+    border-radius: 0.5rem;
+    padding: 0.6rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.controles__select:hover,
+.controles__select:focus {
+    border-color: var(--color-blanco);
+    transform: translateY(-2px);
+}
+
+.controles__select option {
+    background-color: var(--fondo-principal);
+    color: var(--color-oro);
+    font-family: var(--fuente-principal);
+}
+
+.cabecera-favoritos__boton {
+    background: transparent;
+    color: var(--color-oro);
+    font-family: var(--fuente-principal);
+    font-size: 0.95rem;
+    padding: 1rem;
+    border: 2px solid var(--color-oro);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
+.cabecera-favoritos__boton:hover {
+    background: var(--color-oro);
+    color: var(--color-negro);
+    border-color: var(--color-blanco);
+    font-weight: 900;
+    transform: translateY(-3px);
 }
