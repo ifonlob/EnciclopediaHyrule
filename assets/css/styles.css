@@ -601,7 +601,7 @@ img {
     padding: 1.1rem;
 }
 
-.games, .staff, .characters, .monsters, .bosses, .dungeons, .places, .items {
+.games, .staff, .characters, .monsters, .bosses, .dungeons, .places, .items,.contenedor-tarjetas-unico {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
