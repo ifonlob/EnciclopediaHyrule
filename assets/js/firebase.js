@@ -75,114 +75,102 @@ const renderizarFavoritos = async () => {
 
         const titulo = document.createElement('h2');
         titulo.classList.add('mensaje-favoritos-vacio__titulo');
+        titulo.textContent = "Aún no tienes favoritos guardados";
 
         const descripcion = document.createElement('p');
         descripcion.classList.add('mensaje-favoritos-vacio__texto');
-
-        titulo.textContent = "Aún no tienes favoritos guardados";
         descripcion.textContent = "¿A qué esperas para añadir tus favoritos?.\n¡Estás a un solo clic de hacerlo realidad!";
 
         articulo.append(titulo);
         articulo.append(descripcion);
         contenedorPrincipal.append(articulo);
-
         return;
     }
 
-    const favoritosAgrupados = {}
-    listaFavoritos.forEach(fav => {
-        if (!favoritosAgrupados[fav.categoria]) {
-            favoritosAgrupados[fav.categoria] = []
-        }
+    const selectOrden = document.querySelector(".controles__select");
+    const orden = selectOrden ? selectOrden.value : "fecha-desc";
 
-        if (!favoritosAgrupados[fav.categoria].includes(fav.tarjetaId)) {
-            favoritosAgrupados[fav.categoria].push(fav.tarjetaId)
-        }
-    })
+    listaFavoritos.sort((a, b) => {
+        if (orden === "fecha-desc") return b.fecha.toMillis() - a.fecha.toMillis();
+        if (orden === "fecha-asc") return a.fecha.toMillis() - b.fecha.toMillis();
+        if (orden === "nombre-asc") return a.nombre.localeCompare(b.nombre);
+        if (orden === "nombre-desc") return b.nombre.localeCompare(a.nombre);
+        return 0;
+    });
 
-    for (const categoria in favoritosAgrupados) {
-        const ids = favoritosAgrupados[categoria]
+    const seccionUnica = document.createElement("section");
+    seccionUnica.classList.add("contenedor-tarjetas-unico");
 
-        const seccion = document.createElement("section")
-        seccion.classList.add(categoria)
+    for (const fav of listaFavoritos) {
+        try {
+            const respuesta = await fetch(`https://zelda.fanapis.com/api/${fav.categoria}/${fav.tarjetaId}`)
+            const json = await respuesta.json()
 
-        const h2 = document.createElement("h2")
-        h2.classList.add("seccion__titulo")
-        h2.textContent = categoriasTraducidas[categoria].toUpperCase()
-        contenedorPrincipal.append(h2)
+            if (json.success && json.data) {
+                const objeto = json.data
 
-        for (const id of ids) {
-            try {
-                const respuesta = await fetch(`https://zelda.fanapis.com/api/${categoria}/${id}`)
-                const json = await respuesta.json()
+                const tarjeta = document.createElement('article')
+                tarjeta.classList.add("tarjeta")
 
-                if (json.success && json.data) {
-                    const objeto = json.data
+                const nombre = document.createElement('h3')
+                nombre.classList.add("tarjeta__nombre")
+                nombre.textContent = objeto.name
 
-                    const tarjeta = document.createElement('article')
-                    tarjeta.classList.add("tarjeta")
+                const descripcion = document.createElement('p')
+                descripcion.classList.add("tarjeta__descripcion")
 
-                    const nombre = document.createElement('h3')
-                    nombre.classList.add("tarjeta__nombre")
-                    nombre.textContent = objeto.name
+                let contenido = ""
+                contenido += `Categoría: ${categoriasTraducidas[fav.categoria].toUpperCase()}<br><br>`
 
-                    const descripcion = document.createElement('p')
-                    descripcion.classList.add("tarjeta__descripcion")
-
-                    let contenido = ""
-
-                    if (objeto.description) contenido += `${objeto.description}<br><br>`
-                    if (categoria === "games") {
-                        if (objeto.developer) contenido += `Desarrolladora: ${objeto.developer}<br>`
-                        if (objeto.publisher) contenido += `Publicadora: ${objeto.publisher}<br>`
-                        if (objeto.released_date) contenido += `Lanzamiento: ${objeto.released_date}<br>`
-                    }
-                    if (categoria === "staff") {
-                        if (objeto.role) contenido += `Rol: ${objeto.role}<br>`
-                        if (objeto.worked_on && objeto.worked_on.length > 0) contenido += `Proyectos: ${objeto.worked_on.length}<br>`
-                    }
-                    if (categoria === "characters") {
-                        if (objeto.gender) contenido += `Género: ${objeto.gender}<br>`
-                        if (objeto.race && objeto.race.trim() !== "") contenido += `Raza: ${objeto.race}<br>`
-                    }
-                    if (categoria === "bosses") {
-                        if (objeto.dungeons && objeto.dungeons.length > 0) contenido += `Mazmorras: ${objeto.dungeons.length}<br>`
-                    }
-                    if (categoria === "places") {
-                        if (objeto.inhabitants && objeto.inhabitants.length > 0) contenido += `Habitantes: ${objeto.inhabitants.length} conocidos<br>`
-                    }
-                    if (objeto.appearances && objeto.appearances.length > 0) {
-                        contenido += `Apariciones: ${objeto.appearances.length} juegos<br>`
-                    } else if (objeto.games && objeto.games.length > 0) {
-                        contenido += `Apariciones: ${objeto.games.length} juegos<br>`
-                    }
-
-                    descripcion.innerHTML = contenido
-
-                    const boton = document.createElement("button")
-                    boton.classList.add("tarjeta__boton-favorito")
-                    boton.dataset.id = objeto.id
-                    boton.textContent = "Eliminar de favoritos"
-
-                    boton.addEventListener("click", async () => {
-                        await eliminarFavorito(objeto.id)
-                        renderizarFavoritos()
-                    })
-
-                    tarjeta.append(nombre)
-                    tarjeta.append(descripcion)
-                    tarjeta.append(boton)
-                    seccion.append(tarjeta)
+                if (objeto.description) contenido += `${objeto.description}<br><br>`
+                if (fav.categoria === "games") {
+                    if (objeto.developer) contenido += `Desarrolladora: ${objeto.developer}<br>`
+                    if (objeto.publisher) contenido += `Publicadora: ${objeto.publisher}<br>`
+                    if (objeto.released_date) contenido += `Lanzamiento: ${objeto.released_date}<br>`
                 }
-            } catch (error) {
-                console.error(`Error al obtener los datos del ID ${id}:`, error)
-            }
-        }
+                if (fav.categoria === "staff") {
+                    if (objeto.role) contenido += `Rol: ${objeto.role}<br>`
+                    if (objeto.worked_on && objeto.worked_on.length > 0) contenido += `Proyectos: ${objeto.worked_on.length}<br>`
+                }
+                if (fav.categoria === "characters") {
+                    if (objeto.gender) contenido += `Género: ${objeto.gender}<br>`
+                    if (objeto.race && objeto.race.trim() !== "") contenido += `Raza: ${objeto.race}<br>`
+                }
+                if (fav.categoria === "bosses") {
+                    if (objeto.dungeons && objeto.dungeons.length > 0) contenido += `Mazmorras: ${objeto.dungeons.length}<br>`
+                }
+                if (fav.categoria === "places") {
+                    if (objeto.inhabitants && objeto.inhabitants.length > 0) contenido += `Habitantes: ${objeto.inhabitants.length} conocidos<br>`
+                }
+                if (objeto.appearances && objeto.appearances.length > 0) {
+                    contenido += `Apariciones: ${objeto.appearances.length} juegos<br>`
+                } else if (objeto.games && objeto.games.length > 0) {
+                    contenido += `Apariciones: ${objeto.games.length} juegos<br>`
+                }
 
-        if (seccion.children.length > 0) {
-            contenedorPrincipal.append(seccion)
+                descripcion.innerHTML = contenido
+
+                const boton = document.createElement("button")
+                boton.classList.add("tarjeta__boton-favorito")
+                boton.dataset.id = objeto.id
+                boton.textContent = "Eliminar de favoritos"
+
+                boton.addEventListener("click", async () => {
+                    await eliminarFavorito(objeto.id)
+                    renderizarFavoritos()
+                })
+
+                tarjeta.append(nombre)
+                tarjeta.append(descripcion)
+                tarjeta.append(boton)
+                seccionUnica.append(tarjeta)
+            }
+        } catch (error) {
+            console.error(`Error al obtener los datos del ID ${fav.tarjetaId}:`, error)
         }
     }
+
+    contenedorPrincipal.append(seccionUnica);
 }
 
 export const vaciarFavoritos = async () =>{
@@ -207,6 +195,11 @@ const inicializarModuloFavoritos = () => {
     checkboxes.forEach(checkbox =>{
         checkbox.addEventListener("change",renderizarFavoritos)
     })
+
+    const selectOrden = document.querySelector(".controles__select");
+    if(selectOrden){
+        selectOrden.addEventListener("change", renderizarFavoritos)
+    }
 }
 
 inicializarModuloFavoritos()
