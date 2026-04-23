@@ -3,7 +3,7 @@ const xml2js = require('xml2js');
 
 const procesarCatalogo = async () => {
     try {
-        const archivoXML = fs.readFileSync('../../data/juegos.xml', 'utf8');
+        const archivoXML = fs.readFileSync('./data/juegos.xml', 'utf8');
 
         const parser = new xml2js.Parser({ explicitArray: false });
 
