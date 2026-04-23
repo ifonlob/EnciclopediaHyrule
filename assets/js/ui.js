@@ -223,8 +223,3 @@ const inicializar = () => {
 
 
 inicializar()
-
-
-
-
-console.log(checkboxes)
