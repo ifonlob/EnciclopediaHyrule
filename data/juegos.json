@@ -1,0 +1,47 @@
+[
+  {
+    "id": "001",
+    "titulo": "The Legend of Zelda: Ocarina of Time",
+    "desarrolladora": "Nintendo EAD",
+    "publicadora": "Nintendo",
+    "plataforma": "Nintendo 64",
+    "anio": 1998,
+    "puntuacion": 99
+  },
+  {
+    "id": "002",
+    "titulo": "The Legend of Zelda: Breath of the Wild",
+    "desarrolladora": "Nintendo EPD",
+    "publicadora": "Nintendo",
+    "plataforma": "Nintendo Switch",
+    "anio": 2017,
+    "puntuacion": 97
+  },
+  {
+    "id": "003",
+    "titulo": "The Legend of Zelda: Majora's Mask",
+    "desarrolladora": "Nintendo EAD",
+    "publicadora": "Nintendo",
+    "plataforma": "Nintendo 64",
+    "anio": 2000,
+    "puntuacion": 95
+  },
+  {
+    "id": "004",
+    "titulo": "The Legend of Zelda: A Link to the Past",
+    "desarrolladora": "Nintendo EAD",
+    "publicadora": "Nintendo",
+    "plataforma": "Super Nintendo",
+    "anio": 1991,
+    "puntuacion": 95
+  },
+  {
+    "id": "005",
+    "titulo": "The Legend of Zelda: Tears of the Kingdom",
+    "desarrolladora": "Nintendo EPD",
+    "publicadora": "Nintendo",
+    "plataforma": "Nintendo Switch",
+    "anio": 2023,
+    "puntuacion": 96
+  }
+]
