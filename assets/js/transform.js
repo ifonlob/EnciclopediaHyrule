@@ -1,6 +1,12 @@
 const fs = require('fs');
 const xml2js = require('xml2js');
 
+
+/**
+ * Lee el archivo XML del catálogo, lo parsea a un objeto JavaScript,
+ * da formato a los datos y genera tanto un archivo JSON como un CSV con el resultado.
+ * @async
+ */
 const procesarCatalogo = async () => {
     try {
         const archivoXML = fs.readFileSync('./data/juegos.xml', 'utf8');
@@ -33,6 +39,11 @@ const procesarCatalogo = async () => {
     }
 };
 
+
+/**
+ * Genera un archivo CSV a partir de un array de datos de juegos y lo escribe en el sistema de archivos local.
+ * @param {Array<Object>} datos - Array de objetos formateados que representan los juegos de la saga.
+ */
 const generarCSV = (datos) => {
     const cabeceras = "ID,Título,Desarrolladora,Publicadora,Plataforma,Año,Puntuación\n";
 
