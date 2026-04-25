@@ -152,3 +152,47 @@ En el proyecto lo he destinado exclusivamente a la exportación de datos, princi
 para el intercambio de datos entre sistemas, el CSV es el rey en cuanto a la experiencia con el usuario final, ya que permite que el
 catálogo se descargue en formato CSV, garantizando que cualquier usuario pueda abrir los datos en programas como Microsoft Excel o Google Sheets sin 
 necesidad de tener conocimientos técnicos.
+
+## Esquemas
+
+Para garantizar la integridad y calidad de los datos que procesa la aplicación, he implementado una capa de validación estricta utilizando JSON Schema para los datos dinámicos de la API 
+y XSD (XML Schema Definition) para el catálogo de juegos en XML.
+
+### JSON Schema (`schemas/entidad_schema.json`)
+
+He creado este esquema para validar la estructura de los objetos que recibo de la Zelda API. 
+
+Al ser una fuente externa, es vital asegurar que los datos cumplen con mis expectativas antes de intentar renderizarlos en el DOM.
+En este esquema he validado principalmente la estructura de los campos comunes (`id`,`name` y `description`) y 
+además he marcado como `required` los campos `id` y `name`, todo con la intención de que mi lógica en
+`assets/js/ui.js` pueda depender sin problemas de estos campos para generar los identificadores únicos de los elementos (para los favoritos)
+y para mostrar el título en las tarjetas, puesto que si un objeto careciera de estos campos, la interfaz fallaría o mostraría elementos "vacíos", 
+por lo que este esquema actúa como una primera barrera de defensa.
+
+### XSD (data/`juegos.xsd`)
+
+Para validar el catálogo de juegos (`data/juegos.xml`), he diseñado un esquema XSD que impone restricciones de tipo de datos, el cual valida
+la estructura jerárquica de `<saga> -> <juego>`.
+
+Para empezar he definido explícitamente los campos `anio` y `puntuacion` como xs:integer, dado que al realizar la conversión a JSON, necesito 
+operar numéricamente con estos valores (por ejemplo, para ordenar juegos por puntuación o año), y por lo que si el XML original contuviera texto
+en lugar de números, el proceso de conversión o de ordenación fallaría.
+
+Finalmente, cabe destacar que el archivo `juegos.xml` está enlazado directamente al esquema mediante 
+el atributo `xsi:noNamespaceSchemaLocation`, permitiendo que cualquier editor XML valide el documento en tiempo real.
+
+### Evidencia de validación
+
+Para verificar que mis esquemas son correctos, he realizado pruebas de validación.
+A continuación, presento las capturas que demuestran que tanto el JSON como el XML cumplen con las reglas definidas:
+
+#### JSON Schema
+
+![JSON Schema Validación](assets/imgs/validacion-esquema-json.png)
+
+#### XSD
+
+![XSD Validación](assets/imgs/validacion-esquema-xml.png)
+
+
+
