@@ -223,7 +223,7 @@ Aunque localStorage es una herramienta potente, he descartado su uso para los fa
 - **Ámbito local**: Los datos están vinculados exclusivamente al navegador y dispositivo actual.
 - **Capacidad**: Está limitado a unos 5-10MB de texto, y aunque parece mucho, es un límite rígido que no permite escalar si el volumen de datos crece.
 - **Fragilidad**:Es muy sencillo que el usuario borre estos datos accidentalmente al realizar una "limpieza de caché" o que el sistema operativo los elimine si necesita espacio en disco.
-- *+Seguridad y tipado**: Solo permite almacenar cadenas de texto (strings), lo que me obliga a usar `JSON.stringify` y `JSON.parse` constantemente, aumentando la posibilidad de errores de sintaxis si el dato se corrompe.
+- **Seguridad y tipado**: Solo permite almacenar cadenas de texto (strings), lo que me obliga a usar `JSON.stringify` y `JSON.parse` constantemente, aumentando la posibilidad de errores de sintaxis si el dato se corrompe.
 
 ### Reglas de Seguridad en Firestore
 
@@ -286,4 +286,41 @@ Esta separación garantiza que las distintas partes del programa estén desacopl
 Por ejemplo, mi archivo `ui.js` no sabe de dónde vienen los datos, solo sabe cómo dibujarlos, facilitando 
 que si en el futuro decido cambiar Firebase por otra tecnología, solo tendré que reescribir `firebase.js`, 
 sin tocar ni una sola línea de la interfaz gráfica, mejorando de forma drástica la escalabilidad del proyecto.
+
+### Instrucciones de uso 
+
+He diseñado la aplicación para que sea lo más sencilla posible de ejecutar, sin necesidad de instalar, ya que al
+estar basada en HTML, CSS y JavaScript nativo, los pasos para ponerla en marcha son muy directos.
+
+Para ejecutar este proyecto en tu entorno local y probar todas sus funcionalidades, sigue estos pasos:
+
+### Clonación y ejecución local
+
+1. Clona este repositorio en tu equipo local o descarga los archivos.
+
+2. Abre la carpeta raíz del proyecto.
+
+3. Dado que es un proyecto frontend puro, puedes simplemente abrir el archivo index.html en tu navegador web preferido.
+
+Nota: Te recomiendo encarecidamente utilizar una extensión como Live Server en Visual Studio Code, ya que se encarga de levantar
+un pequeño servidor local y evita que tu navegador bloquee operaciones por políticas de seguridad estrictas al leer archivos locales,
+asegurando que todo funcione con fluidez.
+
+### Configuración de Firebase
+
+Para que el gestor de favoritos guarde los datos en la nube, necesitas conectar la aplicación a una base de datos de Firebase. 
+En el repositorio he dejado la estructura preparada, pero debes poner tus propias credenciales:
+
+1. Accede a la Consola de Firebase utilizando tu cuenta de Google.
+2. Haz clic en "Agregar proyecto" y asígnale un nombre
+3. Una vez creado el proyecto, ve al menú lateral izquierdo, despliega "Compilación" y selecciona "Firestore Database".
+4. Haz clic en "Crear base de datos" y, cuando te pregunte por las reglas de seguridad, selecciona arrancar en Modo de prueba (Test mode). Esto permitirá operaciones de lectura y escritura sin necesidad de que el usuario inicie sesión durante 30 días. Elige la ubicación del servidor que prefieras y finaliza la creación.
+5. Vuelve a la página principal de tu proyecto en Firebase y registra una Aplicación Web haciendo clic en el icono circular de </>
+6. Al registrarla, Firebase te mostrará un bloque de código. Solo necesitas copiar el contenido del objeto firebaseConfig (donde aparecen tu apiKey, authDomain, projectId, etc.).
+7. Abre el archivo assets/js/firebase.js de mi repositorio. Verás que he dejado una constante llamada `firebaseConfig`. Sustituye ese objeto vacío por los datos que acabas de copiar.
+
+### Requisitos de red
+
+Asegúrate de tener una conexión a internet activa, puesto que la aplicación depende de internet para conectarse a la Zelda API (y realizar las búsquedas) 
+y a Firebase Firestore (para cargar y guardar tus favoritos). Si no tienes conexión, verás los mensajes de error correspondientes en la interfaz gráfica.
 
