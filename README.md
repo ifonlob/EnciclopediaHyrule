@@ -251,3 +251,39 @@ Sin embargo, al ser datos más pesados (objetos de la API), las cookies eran inv
 Es la opción para bases de datos locales complejas y de gran volumen.
 La usaría si la enciclopedia necesitara funcionar totalmente offline con miles de registros de imágenes, por 
 lo que para una caché de texto simple, la simplicidad de localStorage es mucho más eficiente en términos de desarrollo.
+
+## Decisiones técnicas
+
+A lo largo del desarrollo de la Enciclopedia Hyrule, me he encontrado con varios retos arquitectónicos. 
+Para resolverlos, he priorizado el rendimiento de la aplicación y la mantenibilidad del código.
+
+A continuación, detallo y justifico las principales decisiones técnicas que he tomado:
+
+### Implementación de un patrón Debounce en el buscador
+
+El requisito exigía que la búsqueda se lanzara automáticamente mientras el usuario escribía, sin necesidad de 
+pulsar un botón de "Buscar", lo que suponía un problema  que por cada letra que el usuario escribiera la aplicación 
+lanzaría peticiones por cada una de ellas.
+
+Esto genera tres problemas graves: saturación de la red, riesgo de ser bloqueados por la API (error 429 Too Many Requests) y condiciones de carrea 
+(donde una petición antigua tarda más en responder que una nueva, mostrando resultados incorrectos en pantalla).
+
+Por lo que finalmente decidí implementar una función de debounce (temporizador) en la lógica del buscador.
+
+Gracias a esta decisión, el código detecta cada pulsación de tecla pero reinicia un temporizador de unos 300 milisegundos, 
+en donde la petición fetch real a la API solo se ejecuta cuando el usuario deja de escribir, reduciendo drásticamente el consumo de datos,
+aliviando la carga en el servidor externo y mejorando la fluidez de la interfaz.
+
+### Arquitectura modular y separación de responsabilidades
+
+Al trabajar con manipulación del DOM, llamadas a APIs externas, transformación de XML y bases de datos en la nube, el código puede convertirse rápidamente 
+en lo que se conoce como "código espagueti".
+
+Por lo que en lugar de crear un único y gigantesco archivo `main.js`, he dividido el proyecto en módulos con responsabilidades únicas y estrictas: 
+`api.js` (comunicación externa y caché), `firebase.js` (base de datos en la nube), `transform.js` (procesamiento y exportación) y `ui.js` (renderizado y eventos del DOM).
+
+Esta separación garantiza que las distintas partes del programa estén desacopladas. 
+Por ejemplo, mi archivo `ui.js` no sabe de dónde vienen los datos, solo sabe cómo dibujarlos, facilitando 
+que si en el futuro decido cambiar Firebase por otra tecnología, solo tendré que reescribir `firebase.js`, 
+sin tocar ni una sola línea de la interfaz gráfica, mejorando de forma drástica la escalabilidad del proyecto.
+
