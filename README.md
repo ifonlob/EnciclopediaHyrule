@@ -196,3 +196,58 @@ A continuación, presento las capturas que demuestran que tanto el JSON como el 
 
 
 
+## Almacenamiento
+
+Para la gestión de datos en la Enciclopedia Hyrule, he diseñado una arquitectura híbrida (localStorage + Firebase).
+He tomado esta decisión basándome en el ciclo de vida de los datos, ya que mientras que una búsqueda es efímera, la lista de favoritos pertenece al propio usuario.
+
+He decidido utilizar herramientas distintas para la caché y para los favoritos para aprovechar las ventajas específicas de cada tecnología:
+
+### localStorage para la Caché:
+
+En mi código (`assets/js/api.js`), utilizo el localStorage para almacenar los resultados de las peticiones a la Zelda API, lo que me aporta
+un acceso local y extremadamente rápido, puesto que al usar una clave compuesta (tipo de entidad + término de búsqueda), puedo recuperar datos
+de forma instantánea sin realizar una petición de red, lo que acaba suponiendo ahorro en ancho de banda de la API y mejora drásticamente la 
+experiencia de usuario al eliminar tiempos de espera en búsquedas repetidas.
+
+### Firebase Firestore para los Favoritos
+
+Para la gestión de favoritos (`assets/js/firebase.js`), he optado por una base de datos NoSQL en la nube principalmente debido a la persistencia
+multidispositivo, dado que al estar en la nube los favoritos no dependen de un navegador específico, es decir, si el usuario marca un monstruo como
+favorito en su portátil, su selección aparecerá automáticamente cuando abra la aplicación en su móvil o en otro navegador, algo que sería imposible solo con tecnologías locales.
+
+### Limitaciones de localStorage
+
+Aunque localStorage es una herramienta potente, he descartado su uso para los favoritos debido a sus limitaciones críticas:
+
+- **Ámbito local**: Los datos están vinculados exclusivamente al navegador y dispositivo actual.
+- **Capacidad**: Está limitado a unos 5-10MB de texto, y aunque parece mucho, es un límite rígido que no permite escalar si el volumen de datos crece.
+- **Fragilidad**:Es muy sencillo que el usuario borre estos datos accidentalmente al realizar una "limpieza de caché" o que el sistema operativo los elimine si necesita espacio en disco.
+- *+Seguridad y tipado**: Solo permite almacenar cadenas de texto (strings), lo que me obliga a usar `JSON.stringify` y `JSON.parse` constantemente, aumentando la posibilidad de errores de sintaxis si el dato se corrompe.
+
+### Reglas de Seguridad en Firestore
+
+Las reglas de seguridad de Firestore son el mecanismo que permite definir quién tiene permiso para leer, crear, modificar o eliminar documentos en mi base de datos.
+En este proyecto se opera en "modo test" o que significa que cualquier persona con mi configuración puede acceder a los datos, es decir, es una configuración útil para
+el desarrollo ágil, pero inviable en producción, dado que en un entorno real, las reglas se configurarían para que un usuario solo pueda leer o escribir en documentos donde
+el campo userId coincida con su identificador de sesión (request.auth.uid), garantizando la sseguridad.
+
+### Alternativas consideradas
+
+He evaluado otras tecnologías antes de decidirme por este modelo:
+
+#### sessionStorage
+
+La usaría si los datos solo debieran existir mientras la pestaña está abierta.
+En mi caso, quería que la caché de búsqueda sobreviviera al cierre del navegador, por lo que elegí localStorage.
+
+#### Cookies
+
+Son ideales para gestionar sesiones de usuario o tokens de autenticación pequeños que el servidor necesita leer. 
+Sin embargo, al ser datos más pesados (objetos de la API), las cookies eran inviables por tamaño y rendimiento.
+
+#### IndexedBD
+
+Es la opción para bases de datos locales complejas y de gran volumen.
+La usaría si la enciclopedia necesitara funcionar totalmente offline con miles de registros de imágenes, por 
+lo que para una caché de texto simple, la simplicidad de localStorage es mucho más eficiente en términos de desarrollo.
