@@ -29,7 +29,13 @@ const categoriasTraducidas = {
     "places": "lugares", "items": "objetos"
 }
 
-
+/**
+ * Guarda un nuevo elemento en la colección de "favoritos" en Firebase Firestore.
+ * @async
+ * @param {string} id - El ID único del elemento (tarjeta) de la API.
+ * @param {string} categoria - La categoría a la que pertenece el elemento.
+ * @param {string} nombre - El nombre del elemento.
+ */
 export const guardarFavoritos = async(id, categoria,nombre) => {
     await addDoc(collection(bd, "favoritos"),{
         tarjetaId : id,
@@ -39,11 +45,21 @@ export const guardarFavoritos = async(id, categoria,nombre) => {
     })
 }
 
+/**
+ * Obtiene todos los elementos guardados en la colección de "favoritos" de Firebase Firestore.
+ * @async
+ * @returns {Promise<Array<Object>>} Promesa que contiene un array de objetos con los datos de los favoritos.
+ */
 export const obtenerFavoritos = async() =>{
     const favoritos = await getDocs(collection(bd,"favoritos"))
     return favoritos.docs.map(favorito => favorito.data())
 }
 
+/**
+ * Elimina un elemento específico de la colección de "favoritos" en Firebase buscando por su `tarjetaId`.
+ * @async
+ * @param {string} id - El ID del elemento (tarjeta) que se desea eliminar.
+ */
 export const eliminarFavorito = async(id) =>{
     const favoritos = await getDocs(collection(bd,"favoritos"))
     for(const documento of favoritos.docs){
@@ -53,6 +69,12 @@ export const eliminarFavorito = async(id) =>{
     }
 }
 
+/**
+ * Renderiza los elementos favoritos en el DOM.
+ * Filtra, ordena y hace peticiones a la API externa para obtener los datos completos de cada favorito.
+ * @async
+ * Modifica el DOM insertando las tarjetas de favoritos o un mensaje si está vacío.
+ */
 const renderizarFavoritos = async () => {
     const contenedorPrincipal = document.querySelector("#contenedor-favoritos")
     if (!contenedorPrincipal) return;
@@ -173,6 +195,10 @@ const renderizarFavoritos = async () => {
     contenedorPrincipal.append(seccionUnica);
 }
 
+/**
+ * Elimina absolutamente todos los documentos de la colección de "favoritos" en Firebase y actualiza la vista.
+ * @async
+ */
 export const vaciarFavoritos = async () =>{
     const favoritos = await getDocs(collection(bd, "favoritos"));
     const promesasBorrado = favoritos.docs.map(documento =>
@@ -183,6 +209,10 @@ export const vaciarFavoritos = async () =>{
     await renderizarFavoritos();
 }
 
+/**
+ * Inicializa el módulo de favoritos. Configura los listeners de eventos para filtros, ordenación
+ * y el botón de vaciar, y ejecuta la primera renderización de la lista.
+ */
 const inicializarModuloFavoritos = () => {
     renderizarFavoritos();
 
