@@ -1,5 +1,9 @@
 "use strict";
-
+/**
+ * Carga los datos de los juegos desde un archivo JSON local y los renderiza como tarjetas en el contenedor del catálogo.
+ * @async
+ * No retorna ningún valor. Modifica el DOM directamente.
+ */
 const renderizarCatalogo = async () => {
     const contenedor = document.querySelector(".contenedor-catalogo")
     if(!contenedor) return
