@@ -123,3 +123,32 @@ Para cumplir con los criterios de calidad, he pulido la interacción con la API 
 - **Gestión de errores**: He implementado bloques try/catch en mis llamadas, ya que si la API devuelve un código de error (como un 404 Not Found al no hallar una entidad o un 500 por fallo del servidor),
 mi código intercepta la respuesta y muestra un mensaje de error claro en la interfaz (a través de ui.js), asegurando una experiencia amigable con el usuario.
 
+## Formato de datos
+
+En este proyecto, he trabajado con tres tipos de formatos fundamentales para el intercambio de información: JSON, XML y CSV.
+
+### JSON
+
+Es el formato que utilizo como "idioma nativo" dentro de la aplicación el cual se caracteriza por ser ligero, basado en texto y estructurado en pares clave-valor.
+
+Lo he empleado en el proyecto principalmente porque es el formato estándar de la Zelda API, ya que al ser un objeto nativo de JavaScript, su integración es inmediata, sin necesidad de parseos complejos.
+
+De la misma forma, lo he utilizado para la comunicación con la API externa y como formato intermedio tras convertir el XML.
+Gracias a su estructura, me ha permitido manipular los datos de forma directa en mi código, lo que ha mejorado considerablemente la velocidad de respuesta de la interfaz.
+
+### XML
+
+A diferencia de JSON, es mucho más descriptivo y está diseñado no solo para el transporte de datos, sino para la estructuración de documentos.
+
+Lo he usado en el proyecto en el archivo `data/juegos.xml` para almacenar información del catálogo de juegos.
+Aunque es más verboso, su capacidad de validación mediante XSD me permite asegurar que los datos del catálogo siempre tengan 
+la estructura correcta antes de procesarlos. 
+
+### CSV
+
+Es el formato de texto más sencillo, donde los datos se organizan en filas y columnas separadas por comas.
+
+En el proyecto lo he destinado exclusivamente a la exportación de datos, principalmente porque aunque JSON y XML son mejores 
+para el intercambio de datos entre sistemas, el CSV es el rey en cuanto a la experiencia con el usuario final, ya que permite que el
+catálogo se descargue en formato CSV, garantizando que cualquier usuario pueda abrir los datos en programas como Microsoft Excel o Google Sheets sin 
+necesidad de tener conocimientos técnicos.
