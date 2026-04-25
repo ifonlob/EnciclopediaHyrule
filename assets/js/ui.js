@@ -15,6 +15,9 @@ const categoriasTraducidas = {
 }
 let temporizadorDebouncer;
 
+/**
+ * Vacía el contenido HTML interno y oculta todas las secciones de categorías de la interfaz.
+ */
 const limpiarSecciones = () => {
     const categorias = [".games", ".staff", ".characters", ".monsters", ".bosses", ".dungeons", ".places", ".items"];
 
@@ -27,6 +30,11 @@ const limpiarSecciones = () => {
     });
 };
 
+/**
+ * Renderiza los resultados de búsqueda obtenidos de la API en sus respectivas secciones en el DOM.
+ * @async
+ * @param {Array<{categoria: string, resultados: Array<Object>}>} resultado - Array con los resultados de la búsqueda mapeados por categoría.
+ */
 const renderizarResultados = async (resultado) => {
     limpiarSecciones()
 
@@ -151,6 +159,10 @@ const renderizarResultados = async (resultado) => {
     )
 }
 
+/**
+ * Muestra un mensaje en la interfaz indicando que la búsqueda está vacía o invita al usuario a buscar.
+ * Si el mensaje no existe en el DOM, crea los elementos HTML necesarios.
+ */
 const mostrarMensajeBusquedaVacia = () => {
     const seccionMensaje = document.querySelector(".mensaje-busqueda-vacia")
     const introduccion = document.querySelector(".introduccion");
@@ -178,6 +190,9 @@ const mostrarMensajeBusquedaVacia = () => {
     }
 };
 
+/**
+ * Oculta el mensaje de búsqueda vacía de la interfaz.
+ */
 const ocultarMensajeBusquedaVacia = () =>{
     const seccionMensaje = document.querySelector(".mensaje-busqueda-vacia")
     if (seccionMensaje) {
@@ -185,6 +200,10 @@ const ocultarMensajeBusquedaVacia = () =>{
     }
 }
 
+/**
+ * Gestiona la lógica principal de la búsqueda.
+ * Lee el valor del input, las categorías seleccionadas y utiliza un debouncer para evitar saturar la API con llamadas.
+ */
 const gestionarBusqueda = () => {
     clearTimeout(temporizadorDebouncer)
 
@@ -216,6 +235,10 @@ const gestionarBusqueda = () => {
 
 }
 
+/**
+ * Muestra u oculta un mensaje de error en el buscador dependiendo del estado de la conexión con la API.
+ * @param {boolean} hayError - Indicador booleano (true si hubo error en alguna petición, false de lo contrario).
+ */
 const mostrarErrorAPI = (hayError) =>{
     let contenedorError = document.querySelector(".buscador__error")
 
@@ -236,6 +259,10 @@ const mostrarErrorAPI = (hayError) =>{
     }
 }
 
+/**
+ * Inicializa los listeners de eventos para la interfaz de usuario (input de búsqueda y checkboxes)
+ * y ejecuta una primera búsqueda en vacío para configurar el estado inicial.
+ */
 const inicializar = () => {
         buscador.addEventListener("input", gestionarBusqueda);
         checkboxes.forEach(checkbox => {
@@ -243,8 +270,5 @@ const inicializar = () => {
         });
         gestionarBusqueda();
 };
-
-
-
 
 inicializar()
