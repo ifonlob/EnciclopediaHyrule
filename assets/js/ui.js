@@ -198,6 +198,7 @@ const gestionarBusqueda = () => {
     if (textoBusqueda.length === 0) {
         limpiarSecciones()
         mostrarMensajeBusquedaVacia()
+        mostrarErrorAPI(false)
         return;
     }
 
@@ -205,7 +206,11 @@ const gestionarBusqueda = () => {
 
     temporizadorDebouncer = setTimeout(async () =>{
         const resultado = await obtenerResultadosDesdeAPI(textoBusqueda, categoriasActivas);
-        console.log(resultado)
+
+        const hayPeticionConError = resultado.some(res => res.error === true)
+        mostrarErrorAPI(hayPeticionConError)
+
+
         await renderizarResultados(resultado)
     },500)
 
