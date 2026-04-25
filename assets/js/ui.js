@@ -211,6 +211,26 @@ const gestionarBusqueda = () => {
 
 }
 
+const mostrarErrorAPI = (hayError) =>{
+    let contenedorError = document.querySelector(".buscador__error")
+
+    if(!contenedorError){
+        contenedorError = document.createElement("p")
+        contenedorError.classList.add("buscador__error")
+        contenedorError.textContent = "Error con la conexión con la API"
+
+        const navBuscador = document.querySelector(".cabecera__buscador")
+        if(navBuscador) navBuscador.append(contenedorError)
+    }
+
+    if(hayError){
+        contenedorError.classList.remove("oculto")
+    }
+    else{
+        contenedorError.classList.add("oculto")
+    }
+}
+
 const inicializar = () => {
         buscador.addEventListener("input", gestionarBusqueda);
         checkboxes.forEach(checkbox => {
