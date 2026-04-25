@@ -96,3 +96,30 @@ Esto me asegura que, si la API cambia o falla, mi código reciba exactamente lo 
 
 - **XSD (XML Schema Definition)**: He vinculado `data/juegos.xsd` con el archivo XML original usando `xsi:noNamespaceSchemaLocation`.
 Esto me permite validar que el catálogo de juegos cumpla con los tipos de datos correctos (como xs:integer para los años y puntuaciones), algo que no podría hacer tan fácilmente sin este esquema.
+
+## La Zelda API
+
+Para dar vida a la enciclopedia y permitir que el usuario explore el universo de Zelda, he integrado la [API de Zelda](https://zelda.fanapis.com/). 
+Mi decisión de utilizar esta API ha sido principalmente a que es un servicio RESTful bien estructurado, lo que me ha permitido consumir recursos de manera sencilla y dinámica.
+
+### Implementación y arquitectura de consulta
+
+He implementado el consumo de la API en el archivo `assets/js/api.js.`
+En lugar de crear funciones aisladas para cada tipo de entidad, he diseñado una arquitectura de consulta flexible, explicada a continuación:
+
+- **Implementación de endpoints**: A diferencia de una implementación básica, he implementado todos los endpoints de categorías disponibles (personajes, monstruos, objetos, juegos, etc.). 
+Esto lo logré parametrizando la URL base en mis funciones de fetch, lo que permite que la aplicación escale si decido añadir más tipos de datos en el futuro sin tener que reescribir la lógica de la consulta a la API
+
+
+- **Uso de parámetros**: He aprovechado la capacidad de la API para filtrar resultados mediante el uso de los template strings en mis peticiones fetch, gestiono la búsqueda en tiempo real y el filtrado por nombre, optimizando el tráfico de red de la API.
+
+### Gestión de estado y errores
+
+Para cumplir con los criterios de calidad, he pulido la interacción con la API con tal de que el usuario nunca vea una pantalla en blanco si algo falla:
+
+- **Async/Await**:Toda la interacción es asíncrona, lo que evita que la interfaz se bloquee mientras espero la respuesta del servidor.
+
+
+- **Gestión de errores**: He implementado bloques try/catch en mis llamadas, ya que si la API devuelve un código de error (como un 404 Not Found al no hallar una entidad o un 500 por fallo del servidor),
+mi código intercepta la respuesta y muestra un mensaje de error claro en la interfaz (a través de ui.js), asegurando una experiencia amigable con el usuario.
+
