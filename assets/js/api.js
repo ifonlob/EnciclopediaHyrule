@@ -2,6 +2,13 @@
 
 const URL_BASE = "https://zelda.fanapis.com/api/"
 
+/**
+ * Obtiene los resultados de búsqueda desde la API de Zelda o desde el localStorage si están cacheados.
+ * @async
+ * @param {string} texto - El término de búsqueda introducido por el usuario.
+ * @param {string[]} categorias - Un array con los nombres de las categorías seleccionadas para la búsqueda.
+ * @returns {Promise<Array<{categoria: string, resultados: Array<Object>, error?: boolean}>>} Promesa que resuelve a un array de objetos con la categoría y sus respectivos resultados (o un indicador de error).
+ */
 export const obtenerResultadosDesdeAPI = async(texto,categorias) =>{
     const termino = texto.trim();
 
